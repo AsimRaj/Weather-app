@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { WiHumidity ,WiStrongWind} from "react-icons/wi";
+import { FaTemperatureHigh } from "react-icons/fa";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 // import './App.css'
@@ -26,6 +28,28 @@ function App() {
       setWeather(null);
     }
   };
+  const getWeatherEmoji = (main) =>{
+    switch (main) {
+      case "Clear":
+        return "☀️";
+      case "Clouds":
+        return "☁️";
+      case "Rain":
+        return "🌧️";
+      case "Snow":
+        return "❄️";
+      case "Thunderstorm":
+        return "⛈️";
+      case "Dizzle":
+        return "🌦️";
+        
+        break;
+    
+      default:
+        return "🌈"
+        break;
+    }
+  }
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen bg-linear-to-br from-blue-400 to-indigo-600 p-4">
@@ -49,10 +73,25 @@ function App() {
           </div>
           {error && <p className="text-red-500">{error}</p>}
           {weather && (
-            <div className="mb-4">
+            <div className="mb-4 space-y-2">
+              <div className="text-5xl">{getWeatherEmoji(weather.weather[0].main)}</div>
               <h2 className="text-xl font-semibold text-gray-800">{weather.name}, {weather.sys.country}</h2>
               <p className="text-3xl font-bold text-indigo-800">{weather.main.temp}°C</p>
               <p className="capitalize text-gray-600">{weather.weather[0].description}</p>
+              <div className="flex justify-around mt-4 text-gray-700">
+                <div className="flex items-center space-x-1">
+                  <FaTemperatureHigh className="text-red-500 text-xl" />
+                  <p className="text-sm">Feels: {weather.main.feels_like}°C</p>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <WiHumidity className="text-blue-500 text-2xl" />
+                  <p className="text-sm"> {weather.main.humidity}%</p>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <WiStrongWind className="text-gray-500 text-2xl" />
+                  <p className="text-sm"> {weather.wind.speed}°C</p>
+                </div>
+              </div>
             </div>
           )}
        
