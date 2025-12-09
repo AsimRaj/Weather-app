@@ -50,9 +50,34 @@ function App() {
         break;
     }
   }
+  // -------- BACKGROUND CLASS -------
+  const getBackgroundClass = (main) =>{
+    
+      switch (main) {
+      case "Clear":
+        return "bg-linear-to-br from-blue-400 to-yellow-300";
+      case "Clouds":
+        return "bg-linear-to-br from-gray-400 to-gray-600";
+      case "Rain":
+       
+      case "Snow":
+        return "bg-linear-to-br from-blue-200 to-white";
+      case "Thunderstorm":
+        return "bg-linear-to-br from-gray-800 to-indigo-900";
+      case "Dizzle":
+        return "bg-linear-to-br from-blue-600 to-gray-800";
+        
+        break;
+    
+      default:
+        return "bg-linear-to-br from-indigo-400 to-purple-700"
+        break;
+    }
+  }
+  const backgroundclass = weather? getBackgroundClass(weather.weather[0].main): "bg-linear-to-br from-indigo-400 to-purple-700"
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-linear-to-br from-blue-400 to-indigo-600 p-4">
+    <div className={`flex flex-col justify-center items-center min-h-screen transition-all duration-500 p-4 ${backgroundclass}`}>
       <div className="bg-white max-w-sm w-full shadow-2xl rounded-2xl p-6 text-center">
         <h2 className="text-2xl font-bold mb-4 text-gray-800">
           🌥️ Weather App
@@ -66,7 +91,7 @@ function App() {
           />
           <button
             onClick={fetchWeather}
-            className="text-white bg-indigo-600 px-4 py-2 hover:bg-indigo-800 rounded-r-lg"
+            className="text-white bg-indigo-600 px-4 py-2 hover:bg-indigo-800 rounded-r-lg transition"
           >
             Search
           </button>
@@ -89,7 +114,7 @@ function App() {
                 </div>
                 <div className="flex items-center space-x-1">
                   <WiStrongWind className="text-gray-500 text-2xl" />
-                  <p className="text-sm"> {weather.wind.speed}°C</p>
+                  <p className="text-sm"> {weather.wind.speed} m/s</p>
                 </div>
               </div>
             </div>
